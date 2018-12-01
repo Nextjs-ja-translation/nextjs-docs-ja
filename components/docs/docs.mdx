@@ -59,7 +59,7 @@ export default () => (
 
 <details>
   <summary><b>例</b></summary>
-  <ul><li><a target="_blank" href="/examples/basic-css">基本的な CSS</a></li></ul>
+  <ul><li><a target="_blank" href="/examples/basic-css">Basic css</a></li></ul>
 </details>
 
 Next.js には [styled-jsx](https://github.com/zeit/styled-jsx) の機能が同梱されており、スコープを分離した CSS の適用が可能になっています。これは Web Components の「Shadow CSS」に似た機能を提供することを目的としています (残念ながら Shadow CSS は[サーバーサイドレンダリングで利用することができません](https://github.com/w3c/webcomponents/issues/71))
@@ -210,18 +210,18 @@ export default class extends React.Component {
 
 サーバーサイドレンダリング時には `getInitialProps` の戻り値のデータはシリアライズされます。ちょうど `JSON.stringify` と似た感じです。`getInitialProps` が返すオブジェクトは必ず「プレーンな `Object`」でなければならず、`Date`,/ `Map` / `Set` は使用できないことに注意してください。
 
-For the initial page load, `getInitialProps` will execute on the server only. `getInitialProps` will only be executed on the client when navigating to a different route via the `Link` component or using the routing APIs.
+最初にページが読み込まれるとき、`getInitialProps` はサーバーサイドでのみ実行されます。`getInitialProps` がクライアントサイドで実行されるのは、`Link` コンポーネントかルーティング API を用いて別のルートに移動した場合のみです。
 
-_Note: `getInitialProps` can **not** be used in children components. Only in `pages`._
-
-<br/>
-
-> If you are using some server only modules inside `getInitialProps`, make sure to [import them properly](https://arunoda.me/blog/ssr-and-server-only-modules).
-> Otherwise, it'll slow down your app.
+_注意: `getInitialProps` を子コンポーネントで利用することは**できません**。利用できるのは `pages` に限られます。_
 
 <br/>
 
-You can also define the `getInitialProps` lifecycle method for stateless components:
+> もし `getInitialProps` の中でサーバーのみのモジュールを使っている場合、それらを[正しく import](https://arunoda.me/blog/ssr-and-server-only-modules) していないと
+> アプリケーションが遅くなってしまうため注意してください。
+
+<br/>
+
+ステートレスなコンポーネントでも `getInitialProps` ライフサイクルメソッドを定義することができます:
 
 ```jsx
 const Page = ({ stars }) =>
@@ -238,15 +238,15 @@ Page.getInitialProps = async ({ req }) => {
 export default Page
 ```
 
-`getInitialProps` receives a context object with the following properties:
+`getInitialProps` は context オブジェクトを受け取り、それは以下のプロパティを含みます:
 
-- `pathname` - path section of URL
-- `query` - query string section of URL parsed as an object
-- `asPath` - `String` of the actual path (including the query) shows in the browser
-- `req` - HTTP request object (server only)
-- `res` - HTTP response object (server only)
-- `jsonPageRes` - [Fetch Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object (client only)
-- `err` - Error object if any error is encountered during the rendering
+- `pathname` - URL のパス部分
+- `query` - オブジェクトとしてパースされたURLのクエリストリング部分
+- `asPath` - ブラウザに表示される実際のパスの `文字列` (クエリ部分含む)
+- `req` - HTTP リクエストオブジェクト (サーバーのみ)
+- `res` - HTTP レスポンスオブジェクト (サーバーのみ)
+- `jsonPageRes` - [Fetch のレスポンス](https://developer.mozilla.org/en-US/docs/Web/API/Response)オブジェクト (クライアントのみ)
+- `err` - エラーオブジェクト (もしレンダリング中にエラーが発生した場合)
 
 ### Routing
 
@@ -259,7 +259,7 @@ export default Page
   </ul>
 </details>
 
-Client-side transitions between routes can be enabled via a `<Link>` component. Consider these two pages:
+クライアントサイドでのルートの遷移は `<Link>` コンポーネントによって実現されます。以下の2つのページがある場合を考えてみてください:
 
 ```jsx
 // pages/index.js
@@ -281,15 +281,15 @@ export default () => (
 export default () => <p>Welcome to About!</p>
 ```
 
-__Note: use [`<Link prefetch>`](#prefetching-pages) for maximum performance, to link and prefetch in the background at the same time__
+__注意: 最大限にパフォーマンスを発揮したければ [`<Link prefetch>`](#prefetching-pages) の利用を検討してください。これによって、リンクとバックグラウンドでのプリフェッチを同時に同時に実現することが可能になります__
 
-Client-side routing behaves exactly like the browser:
+クライアントサイドでのルーティングはブラウザとほぼ同じです:
 
-1. The component is fetched
-2. If it defines `getInitialProps`, data is fetched. If an error occurs, `_error.js` is rendered
-3. After 1 and 2 complete, `pushState` is performed and the new component is rendered
+1. コンポーネントを取得する
+2. もし `getInitialProps` が定義されていればデータを取得する。エラーが発生した場合は`_error.js` がレンダリングされる
+3. 1 と 2 が完了したら `pushState` が実行されて新しいコンポーネントがレンダリングされる
 
-To inject the `pathname`, `query` or `asPath` in your component, you can use [withRouter](#using-a-higher-order-component).
+コンポーネントの内部で `pathname` / `query` / `asPath` を弄りたいときは [withRouter](#using-a-higher-order-component) を使ってください。
 
 ##### With URL object
 
@@ -1037,7 +1037,7 @@ import fetch from 'isomorphic-unfetch'
 export default class Page extends React.Component {
   static async getInitialProps() {
     const res = await fetch('https://api.github.com/repos/zeit/next.js')
-    const statusCode = res.statusCode > 200 ? res.statusCode : false
+    const statusCode = res.statusCode > 200 ?res.statusCode : false
     const json = await res.json()
 
     return { statusCode, stars: json.stargazers_count }
