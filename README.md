@@ -9,3 +9,7 @@ You have to update the above file to the latest one somehow :smirk:
 ## Translation Project
 
 https://github.com/5t111111/nextjs-docs-omegat
+
+## Change Log
+
+- Translate progress (base commit: d23c62d)
