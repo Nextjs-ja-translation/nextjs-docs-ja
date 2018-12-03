@@ -6,8 +6,9 @@ import { MediaQueryConsumer } from '../../components/media-query';
 import withPure from '../../components/hoc/pure';
 
 import Markdown from '../../components/contributions/contributions.mdx';
+import { components } from '../../components/docs/documentation';
 
-const Content = withPure(() => <Markdown />);
+const Content = withPure(() => <Markdown components={components} />);
 
 export default () => (
   <Page>
