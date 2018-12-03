@@ -17,7 +17,7 @@ https://github.com/zeit/next-site/blob/master/components/docs/docs.mdx
 - 翻訳を追加や修正
 - サイトの改善
 
-などをやっていただける場合、一般的な  GitHub リポジトリ同様に pull-request を出していただければ取り込みます。
+などをやっていただける場合、一般的な GitHub リポジトリ同様に pull-request を出していただければ取り込みます。
 
 翻訳自体の作業は、翻訳メモリを利用するために以下のプロジェクトで OmegaT という翻訳ツールを利用していますが、メンテナが翻訳メモリへの反映を行いますので、翻訳に貢献いただける方は気にする必要はありません。
 https://github.com/5t111111/nextjs-docs-omegat
