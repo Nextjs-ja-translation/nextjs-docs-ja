@@ -128,6 +128,17 @@ export default withRouter(({ isMobile, router }) => {
                       Docs
                     </a>
                   </Link>
+                  <Link href="/contribution">
+                    <a
+                      className={classNames({
+                        selected: route.startsWith('/contribution')
+                      })}
+                      title="Contribution"
+                      role="button"
+                    >
+                      Contribution
+                    </a>
+                  </Link>
                 </div>
               </nav>
             </Container>
@@ -233,6 +244,17 @@ export default withRouter(({ isMobile, router }) => {
                     role="button"
                   >
                     Docs
+                  </a>
+                </Link>
+                <Link href="/contribution">
+                  <a
+                    className={classNames('mute', {
+                      selected: route.startsWith('/contribution')
+                    })}
+                    title="Contribution"
+                    role="button"
+                  >
+                    Contribution
                   </a>
                 </Link>
               </div>

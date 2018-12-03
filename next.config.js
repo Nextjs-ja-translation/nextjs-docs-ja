@@ -24,6 +24,15 @@ const withGitHubMDX = nextMDX({
   }
 });
 
+const withContributionMDX = nextMDX({
+  extension: path.join(
+    __dirname,
+    'components',
+    'contributions',
+    'contributions.mdx'
+  )
+});
+
 const withMDX = nextMDX({
   extension: /\/(pages)\/(.+)\.mdx?$/,
   options: {
@@ -67,4 +76,4 @@ if (process.env.BUNDLE_ANALYZE) {
   });
 }
 
-module.exports = withGitHubMDX(withMDX(config));
+module.exports = withContributionMDX(withGitHubMDX(withMDX(config)));
