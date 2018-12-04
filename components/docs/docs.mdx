@@ -291,7 +291,7 @@ __注意: 最大限にパフォーマンスを発揮したければ [`<Link pref
 
 コンポーネントの内部で `pathname` / `query` / `asPath` を弄りたいときは [withRouter](#using-a-higher-order-component) を使ってください。
 
-##### With URL object
+##### URLオブジェクト
 
 <details>
   <summary><b>例</b></summary>
@@ -905,24 +905,24 @@ const HelloBundle = dynamic({
 export default () => <HelloBundle title="Dynamic Bundle" />
 ```
 
-### Custom `<App>`
+### カスタム `<App>`
 
 <details>
   <summary><b>例</b></summary>
   <ul>
-    <li><a target="_blank" href="/examples/with-app-layout">Using `_app.js` for layout</a></li>
-    <li><a target="_blank" href="/examples/with-componentdidcatch">Using `_app.js` to override `componentDidCatch`</a></li>
+    <li><a target="_blank" href="/examples/with-app-layout">レイアウトとして`_app.js`を使用する</a></li>
+    <li><a target="_blank" href="/examples/with-componentdidcatch">`componentDidCatch`をオーバーライドするために`_app.js`を使用する</a></li>
   </ul>
 </details>
 
-Next.js uses the `App` component to initialize pages. You can override it and control the page initialization. Which allows you to do amazing things like:
+Next.jsはページを初期化するために`App`コンポーネントを使用します。`App`コンポーネントをオーバーライドし、ページの初期化をコントロールすることが可能です。それによってこのような素晴らしい事が可能になります:
 
-- Persisting layout between page changes
-- Keeping state when navigating pages
-- Custom error handling using `componentDidCatch`
-- Inject additional data into pages (for example by processing GraphQL queries)
+- ページ移動間の固定レイアウト
+- ページ移動する際にステートを保持
+- `componentDidCatch`を使用したカスタムエラーハンドリング
+- ページに追加のデータを注入（例えばGraphQLクエリを使用することによって）
 
-To override, create the `./pages/_app.js` file and override the App class as shown below:
+オーバーライドするには`./pages/_app.js`ファイルを作成し、以下のようにAppクラスをオーバーライドします:
 
 ```js
 import React from 'react'
@@ -951,23 +951,23 @@ export default class MyApp extends App {
 }
 ```
 
-### Custom `<Document>`
+### カスタム `<Document>`
 
 <details>
   <summary><b>例</b></summary>
-  <ul><li><a target="_blank" href="/examples/with-styled-components">Styled components custom document</a></li>
+  <ul><li><a target="_blank" href="/examples/with-styled-components">Styled componentsのカスタムdocumentでの設定</a></li>
   <li><a target="_blank" href="/examples/with-amp">Google AMP</a></li></ul>
 </details>
 
-- Is rendered on the server side
-- Is used to change the initial server side rendered document markup
-- Commonly used to implement server side rendering for css-in-js libraries like [styled-components](./examples/with-styled-components), [glamorous](./examples/with-glamorous) or [emotion](with-emotion). [styled-jsx](https://github.com/zeit/styled-jsx) is included with Next.js by default.
+- サーバーサイドでレンダリングされる
+- 最初のサーバーサイドでレンダリングされる文書マークアップの内容を変更する
+- CSS-in-JSライブラリのためのサーバーサイドレンダリングの実行。CSS-in-JSライブラリとは[styled-components](./examples/with-styled-components), [glamorous](./examples/with-glamorous)>や[emotion](with-emotion)。そしてNext.jsでデフォルトで使用される[styled-jsx](https://github.com/zeit/styled-jsx)です。
 
-Pages in `Next.js` skip the definition of the surrounding document's markup. For example, you never include `<html>`, `<body>`, etc. To override that default behavior, you must create a file at `./pages/_document.js`, where you can extend the `Document` class:
+`Next.js`のページでは、文書のマークアップまわりの定義はスキップします。例えば、`<html>`, `<body>`などはインクルードする必要はありません。通常の挙動をオーバーライドするには、`./pages/_document.js`にファイルを作成しなくてはいけません。このファイルでは`Document`クラスを以下のように拡張できます:
 
 ```jsx
-// _document is only rendered on the server side and not on the client side
-// Event handlers like onClick can't be added to this file
+// _documentはサーバーサイドのみでレンダリングされ、クライアントサイドでは使われません
+// onClickのようなイベントハンドラはこのファイルには書けません
 
 // ./pages/_document.js
 import Document, { Head, Main, NextScript } from 'next/document'
@@ -994,11 +994,12 @@ export default class MyDocument extends Document {
 }
 ```
 
-The `ctx` object is equivalent to the one received in all [`getInitialProps`](#fetching-data-and-component-lifecycle) hooks, with one addition:
+`ctx`オブジェクトは、すべての[`getInitialProps`](#fetching-data-and-component-lifecycle)フックで受け取るオブジェクトと同等です。さらに加えて:
 
-- `renderPage` (`Function`) a callback that executes the actual React rendering logic (synchronously). It's useful to decorate this function in order to support server-rendering wrappers like Aphrodite's [`renderStatic`](https://github.com/Khan/aphrodite#server-side-rendering)
+- `renderPage` (`Function`)は実際のReactのレンダリングロジック（同期的）を実行するコールバックです。Aphroditeの[`renderStatic`](https://github.com/Khan/aphrodite#server-side-rendering)のようなサーバーレンダリングのラッパーをサポートするためには、この関数を装飾することが便利です。
 
-__Note: React-components outside of `<Main />` will not be initialised by the browser. Do _not_ add application logic here. If you need shared components in all your pages (like a menu or a toolbar), take a look at the `App` component instead.__
+__注意: Reactコンポーネントの外にある`<Main />`は、ブラウザによって初期化されません。アプリケーションロジックをここに追加_しないで_ください。もし、すべてのページで共通のコンポーネ
+ント(メニューやツールバーのような)が必要なら、代わりに`App`コンポーネントを使用して下さい。__
 
 ### Custom error handling
 
