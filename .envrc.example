@@ -1,3 +1,1 @@
 export NEXT_SITE_REPOSITORY_PATH=/path/to/zeit/next-site
-export NEXTJS_DOCS_JA_PATH=/path/to/nextjs-docs-ja
-
