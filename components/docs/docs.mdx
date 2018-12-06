@@ -905,7 +905,7 @@ const HelloBundle = dynamic({
 export default () => <HelloBundle title="Dynamic Bundle" />
 ```
 
-### カスタム `<App>`
+### `<App>`のカスタマイズ
 
 <details>
   <summary><b>例</b></summary>
@@ -951,7 +951,7 @@ export default class MyApp extends App {
 }
 ```
 
-### カスタム `<Document>`
+### `<Document>`のカスタマイズ
 
 <details>
   <summary><b>例</b></summary>
@@ -1001,9 +1001,9 @@ export default class MyDocument extends Document {
 __注意: Reactコンポーネントの外にある`<Main />`は、ブラウザによって初期化されません。アプリケーションロジックをここに追加_しないで_ください。もし、すべてのページで共通のコンポーネ
 ント(メニューやツールバーのような)が必要なら、代わりに`App`コンポーネントを使用して下さい。__
 
-### Custom error handling
+### エラーハンドリングのカスタマイズ
 
-404 or 500 errors are handled both client and server side by a default component `error.js`. If you wish to override it, define a `_error.js` in the pages folder:
+ステータスコードが404もしくは500のエラーは、`error.js`というデフォルトのコンポーネントによってクライアントとサーバーサイドの両方でハンドリングされます。もしデフォルトのエラーコンポーネントをオーバーライドしたいのなら、`_error.js`をpagesフォルダーの中に定義して下さい:
 
 ```jsx
 import React from 'react'
@@ -1026,9 +1026,9 @@ export default class Error extends React.Component {
 }
 ```
 
-### Reusing the built-in error page
+### 組み込みのエラーページを再利用する
 
-If you want to render the built-in error page you can by using `next/error`:
+組み込みのエラーページをレンダリングしたいのならば、`next/error`を使用すれば可能です:
 
 ```jsx
 import React from 'react'
@@ -1058,7 +1058,7 @@ export default class Page extends React.Component {
 }
 ```
 
-> If you have created a custom error page you have to import your own `_error` component instead of `next/error`
+> もしカスタムエラーページを作ったのならば、`next/error`ではなく、独自の`_error`コンポーネントをインポートしなければいけません。
 
 ### Custom configuration
 
