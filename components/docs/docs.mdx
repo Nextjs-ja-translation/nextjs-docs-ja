@@ -676,21 +676,21 @@ class MyLink extends React.Component {
 export default withRouter(MyLink)
 ```
 
-### Custom server and routing
+### カスタムサーバーとルーティング
 
 <details>
   <summary><b>例</b></summary>
   <ul>
-    <li><a target="_blank" href="/examples/custom-server">Basic custom server</a></li>
-    <li><a target="_blank" href="/examples/custom-server-express">Express integration</a></li>
-    <li><a target="_blank" href="/examples/custom-server-hapi">Hapi integration</a></li>
-    <li><a target="_blank" href="/examples/custom-server-koa">Koa integration</a></li>
-    <li><a target="_blank" href="/examples/parameterized-routing">Parameterized routing</a></li>
-    <li><a target="_blank" href="/examples/ssr-caching">SSR caching</a></li>
+    <li><a target="_blank" href="/examples/custom-server">基本的なカスタムサーバー</a></li>
+    <li><a target="_blank" href="/examples/custom-server-express">Expressとの統合</a></li>
+    <li><a target="_blank" href="/examples/custom-server-hapi">Hapiとの統合</a></li>
+    <li><a target="_blank" href="/examples/custom-server-koa">Koaとの統合</a></li>
+    <li><a target="_blank" href="/examples/parameterized-routing">パラメータ化されたルーティング</a></li>
+    <li><a target="_blank" href="/examples/ssr-caching">SSRキャッシング</a></li>
   </ul>
 </details>
 
-Typically you start your next server with `next start`. It's possible, however, to start a server 100% programmatically in order to customize routes, use route patterns, etc.
+一般的に`next server`でサーバーを立てます。 It's possible, however, to start a server 100% programmatically in order to customize routes, use route patterns, etc.
 
 When using a custom server with a server file, for example called `server.js`, make sure you update the scripts key in `package.json` to:
 
