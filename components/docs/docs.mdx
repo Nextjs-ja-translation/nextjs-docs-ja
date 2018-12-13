@@ -751,11 +751,11 @@ Supported options:
 それから,  `start`というscriptを `NODE_ENV=production node server.js`に変更してください.
 
 #### ファイルシステムに基づいたルーティングを無効にする
-By default, `Next` will serve each file in `/pages` under a pathname matching the filename (eg, `/pages/some-file.js` is served at `site.com/some-file`.
+デフォルトでは, `Next`は`/pages`配下のファイル名とパス名が連動するようになっている。(例えば、`site.com/some-file`にアクセスすると`/pages/some-file.js`が読み込まれる)
 
-If your project uses custom routing, this behavior may result in the same content being served from multiple paths, which can present problems with SEO and UX.
+もしあなたのプロジェクトがカスタムルーティングを使用しているのなら, この挙動によって異なるパスでも同じコンテンツが読み込まれるようになり、SEOやUX的な問題を引き起こす。
 
-To disable this behavior & prevent routing based on files in `/pages`, simply set the following option in your `next.config.js`:
+この挙動を無効にして &  `/pages`のファイルに基づいたルーティングを防ぐのなら,  `next.config.js`に下記のように記述してください:
 
 ```js
 // next.config.js
@@ -764,8 +764,8 @@ module.exports = {
 }
 ```
 
-Note that `useFileSystemPublicRoutes` simply disables filename routes from SSR; client-side routing
-may still access those paths. If using this option, you should guard against navigation to routes
+ `useFileSystemPublicRoutes` は単純にSSRでのファイル名に基づくルーティングを無効にする; クライエントサイドでのルーティングは
+引き続きこれらのパスにアクセスする。もしこのオプションを使用するのなら, you should guard against navigation to routes
 you do not want programmatically.
 
 You may also wish to configure the client-side Router to disallow client-side redirects to filename
