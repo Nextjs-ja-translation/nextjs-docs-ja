@@ -690,9 +690,9 @@ export default withRouter(MyLink)
   </ul>
 </details>
 
-一般的に`next server`でサーバーを立てます。 It's possible, however, to start a server 100% programmatically in order to customize routes, use route patterns, etc.
+一般的に`next server`でサーバーを立てます。 しかし、ルーティングをカスタマイズするためやルーティングパターンを使うためなどにサーバーを100%プログラムで起動することができます。
 
-When using a custom server with a server file, for example called `server.js`, make sure you update the scripts key in `package.json` to:
+例えば`server.js`と呼ばれるサーバーのためのファイルでカスタムなサーバーを使おうとする時は, `package.json`内のscriptsのkeyを下記のように上書きしていることを確認してください。:
 
 ```json
 {
@@ -704,7 +704,7 @@ When using a custom server with a server file, for example called `server.js`, m
 }
 ```
 
-This example makes `/a` resolve to `./pages/b`, and `/b` resolve to `./pages/a`:
+この例では  `/a` を `./pages/b`に対応させ,  `/b` を `./pages/a`に対応させるようにしております。:
 
 ```js
 // This file doesn't go through babel or webpack transformation.
