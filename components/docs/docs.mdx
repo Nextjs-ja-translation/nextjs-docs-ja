@@ -739,7 +739,7 @@ app.prepare().then(() => {
 })
 ```
 
-The `next` API is as follows:
+ `next` API はこのようになっております:
 - `next(opts: object)`
 
 Supported options:
@@ -748,9 +748,9 @@ Supported options:
 - `quiet` (`bool`) Hide error messages containing server information - default `false`
 - `conf` (`object`) the same object you would use in `next.config.js` - default `{}`
 
-Then, change your `start` script to `NODE_ENV=production node server.js`.
+それから,  `start`というscriptを `NODE_ENV=production node server.js`に変更してください.
 
-#### Disabling file-system routing
+#### ファイルシステムに基づいたルーティングを無効にする
 By default, `Next` will serve each file in `/pages` under a pathname matching the filename (eg, `/pages/some-file.js` is served at `site.com/some-file`.
 
 If your project uses custom routing, this behavior may result in the same content being served from multiple paths, which can present problems with SEO and UX.
