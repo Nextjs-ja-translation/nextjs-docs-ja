@@ -676,23 +676,23 @@ class MyLink extends React.Component {
 export default withRouter(MyLink)
 ```
 
-### Custom server and routing
+### カスタムサーバーとルーティング
 
 <details>
   <summary><b>例</b></summary>
   <ul>
-    <li><a target="_blank" href="/examples/custom-server">Basic custom server</a></li>
-    <li><a target="_blank" href="/examples/custom-server-express">Express integration</a></li>
-    <li><a target="_blank" href="/examples/custom-server-hapi">Hapi integration</a></li>
-    <li><a target="_blank" href="/examples/custom-server-koa">Koa integration</a></li>
-    <li><a target="_blank" href="/examples/parameterized-routing">Parameterized routing</a></li>
-    <li><a target="_blank" href="/examples/ssr-caching">SSR caching</a></li>
+    <li><a target="_blank" href="/examples/custom-server">基本的なカスタムサーバー</a></li>
+    <li><a target="_blank" href="/examples/custom-server-express">Expressとの統合</a></li>
+    <li><a target="_blank" href="/examples/custom-server-hapi">Hapiとの統合</a></li>
+    <li><a target="_blank" href="/examples/custom-server-koa">Koaとの統合</a></li>
+    <li><a target="_blank" href="/examples/parameterized-routing">パラメータ化されたルーティング</a></li>
+    <li><a target="_blank" href="/examples/ssr-caching">SSRキャッシング</a></li>
   </ul>
 </details>
 
-Typically you start your next server with `next start`. It's possible, however, to start a server 100% programmatically in order to customize routes, use route patterns, etc.
+一般的に`next server`でサーバーを立てます。 しかし、ルーティングをカスタマイズするためやルーティングパターンを使うためなどにサーバーを100%プログラムで起動することができます。
 
-When using a custom server with a server file, for example called `server.js`, make sure you update the scripts key in `package.json` to:
+例えば`server.js`と呼ばれるサーバーのためのファイルでカスタムなサーバーを使おうとする時は, `package.json`内のscriptsのkeyを下記のように上書きしていることを確認してください。:
 
 ```json
 {
@@ -704,7 +704,7 @@ When using a custom server with a server file, for example called `server.js`, m
 }
 ```
 
-This example makes `/a` resolve to `./pages/b`, and `/b` resolve to `./pages/a`:
+この例では  `/a` を `./pages/b`に対応させ,  `/b` を `./pages/a`に対応させるようにしております。:
 
 ```js
 // This file doesn't go through babel or webpack transformation.
@@ -739,23 +739,23 @@ app.prepare().then(() => {
 })
 ```
 
-The `next` API is as follows:
+ `next` API はこのようになっております:
 - `next(opts: object)`
 
-Supported options:
-- `dev` (`bool`) whether to launch Next.js in dev mode - default `false`
-- `dir` (`string`) where the Next project is located - default `'.'`
-- `quiet` (`bool`) Hide error messages containing server information - default `false`
-- `conf` (`object`) the same object you would use in `next.config.js` - default `{}`
+サポートされているオプション一覧:
+- `dev` (`bool`) Next.jsをdevモードで 立ち上げるか否か　- デフォルトでは `false`
+- `dir` (`string`) Next.jsのプロジェクトがどこに位置しているのか - デフォルトでは `'.'`
+- `quiet` (`bool`) サーバー情報を含むエラーメッセージを隠す - デフォルトでは `false`
+- `conf` (`object`)  `next.config.js`で使う予定の同じオブジェクト - デフォルトでは `{}`
 
-Then, change your `start` script to `NODE_ENV=production node server.js`.
+それから、`start`というscriptを `NODE_ENV=production node server.js`に変更してください。
 
-#### Disabling file-system routing
-By default, `Next` will serve each file in `/pages` under a pathname matching the filename (eg, `/pages/some-file.js` is served at `site.com/some-file`.
+#### ファイルシステムに基づいたルーティングを無効にする
+デフォルトでは, `Next`は`/pages`配下のファイル名とパス名が連動するようになっています。(例えば、`site.com/some-file`にアクセスすると`/pages/some-file.js`が読み込まれます。)
 
-If your project uses custom routing, this behavior may result in the same content being served from multiple paths, which can present problems with SEO and UX.
+もしあなたのプロジェクトがカスタムルーティングを使用しているのなら, この挙動によって異なるパスでも同じコンテンツが読み込まれるようになり、SEOやUX的な問題が起きます。
 
-To disable this behavior & prevent routing based on files in `/pages`, simply set the following option in your `next.config.js`:
+この挙動を無効にして、 `/pages`のファイルに基づいたルーティングを防ぐのなら,  `next.config.js`に下記のように記述してください:
 
 ```js
 // next.config.js
@@ -764,19 +764,18 @@ module.exports = {
 }
 ```
 
-Note that `useFileSystemPublicRoutes` simply disables filename routes from SSR; client-side routing
-may still access those paths. If using this option, you should guard against navigation to routes
-you do not want programmatically.
+`useFileSystemPublicRoutes` は単純にSSRでのファイル名に基づくルーティングを無効にします; クライエントサイドでのルーティングは
+引き続きこれらのパスにアクセスします。もしこのオプションを使用するのなら、 あなたはプログラムによって不必要なルートへの誘導に対するガードをするべきです。
 
-You may also wish to configure the client-side Router to disallow client-side redirects to filename
-routes; please refer to [Intercepting `popstate`](#intercepting-popstate).
+クライエントサイドでのファイル名に基づくルーティングにリダイレクトすることを禁じるようにクライエントサイドのルーターを設定したいと思うでしょう。
+; その時は [Intercepting `popstate`](#intercepting-popstate)を参照してください。
 
-#### Dynamic assetPrefix
+#### 動的なアセットプレフィックス
 
-Sometimes we need to set the `assetPrefix` dynamically. This is useful when changing the `assetPrefix` based on incoming requests.
-For that, we can use `app.setAssetPrefix`.
+時々、私たちは動的に`assetPrefix`を設定する必要があります。これは入ってくるリクエストに基づく`assetPrefix`を変更するときに役に立ちます。
+そのために、私たちは `app.setAssetPrefix`を使うことができます。
 
-Here's an example usage of it:
+ここに使用例があります。
 
 ```js
 const next = require('next')
