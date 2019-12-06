@@ -1384,6 +1384,41 @@ Next.js supports IE11 and all modern browsers out of the box using [`@babel/pres
 
 The [polyfills](https://github.com/zeit/next.js/tree/canary/examples/with-polyfills) example demonstrates the recommended approach to implement polyfills.
 
+## TypeScript
+
+IDEのようにNext.jsではTypeScriptを簡単に扱えます。
+
+はじめに、空の`tsconfig.json`ファイルをプロジェクトのroot上に作成します。
+
+```bash
+touch tsconfig.json
+```
+
+先程作成したファイルは、自動でデフォルト値をもとに構成されます。([カスタマイズ](https://www.typescriptlang.org/docs/handbook/compiler-options.html)もできます)
+
+それから、`next dev`(または、`npm run dev`)を実行すると環境構築に必要なパッケージをインストールするようメッセージがでますのでインストールします。
+
+```bash
+npm run dev
+
+# You'll see instructions like these:
+#
+# Please install typescript, @types/react, and @types/node by running:
+#
+#         yarn add --dev typescript @types/react @types/node
+#
+# ...
+```
+
+これで、`.js`から`.tsx`変換をすることで、TypeScriptが提供する利点を活用できる準備ができました。
+
+TypeScriptに関して詳しく知りたい方は、[ドキュメント](https://www.typescriptlang.org/)を確認してください。
+
+> 注意点: Next.jsがnext-env.d.tsというファイルをプロジェクトのroot上に作成しますが、TypeScriptのコンパイラーが型を確実に選択するようにするためです。
+>このファイルを削除することはできませんが、編集することはできます（ただし、削除する必要はありません）
+
+> 注意点: Next.jsは、デフォルトではTypeScriptのstrictモードは有効ではないため、別途tsconfig.jsonにて設定する必要があります。
+
 ## Static HTML export
 
 <details>
