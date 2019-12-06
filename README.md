@@ -26,6 +26,6 @@ https://github.com/5t111111/nextjs-docs-omegat
 
 翻訳元に更新があったことを検知するため、ここに翻訳元ファイルのコミットを記録します。
 
-- base commit: d23c62d
+- base commit: d16f39a
 
 翻訳に貢献いただく際は、基本的に上記コミットをベースとしてくださいますようお願いします。
