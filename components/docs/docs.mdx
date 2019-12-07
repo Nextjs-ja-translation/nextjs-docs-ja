@@ -2,17 +2,17 @@
 
 ### セットアップ
 
-#### Quick Start
+#### クイックスタート
 
 ```bash
 npx create-next-app
 ```
 
-_([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) comes with npm 5.2+ and higher, see [instructions for older npm versions](https://gist.github.com/timer/833d9946fa8a05ba855729d05a38ac23))_
+_([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) は npm 5.2 以上に同梱されています。[古いバージョンの npm ではこちらの手順を参照ください。](https://gist.github.com/timer/833d9946fa8a05ba855729d05a38ac23))_
 
-#### Manual Setup
+#### 手動でのセットアップ
 
-Install it in your project:
+以下をプロジェクトにインストールしてください。
 
 ```bash
 npm install --save next react react-dom
@@ -46,10 +46,10 @@ export default Home
 
 これだけで以下が実現できています:
 
-- Automatic transpilation and bundling (with webpack and babel)
-- Hot code reloading
-- Server rendering and indexing of `./pages/`
-- Static file serving. `./public/` is mapped to `/` (given you [create a `./public/` directory](#static-file-serving-eg-images) inside your project)
+- (webpack と babel を利用した) 自動的なトランスパイルとビルド
+- コードのホットリローディング
+- `./pages` 配下のファイルの構造化とサーバーサイドレンダリング
+- 静的ファイルの配布`./public/` は `/` にマッピングされます (プロジェクトに [`./static/` ディレクトリを作成](#static-file-serving-eg-images)する必要があります。)
 
 ### 自動的なコードの分割
 
@@ -127,7 +127,7 @@ export default HelloWorld
   </ul>
 </details>
 
-既存のどんな CSS-in-JS も利用することができます。一番シンプルなのはインラインで記述するものでしょう:
+既存のどんな CSS-in-JS も利用することができます。一番シンプルなのはインラインで記述するものです:
 
 ```jsx
 function HiThere() {
@@ -137,7 +137,7 @@ function HiThere() {
 export default HiThere
 ```
 
-より洗練された CSS-in-JS のソリューションを使いたい場合には、サーバーサイドレンダリングでスタイルを設定するための実装を追加する必要があるでしょう。We enable this by allowing you to define your own [custom `<Document>`](#custom-document) component that wraps each page.
+より洗練された CSS-in-JS のソリューションを使いたい場合には、サーバーサイドレンダリングでスタイルを設定するための実装を追加する必要があるでしょう。これは、各ページをラップする独自の[カスタム `<Document>`](#custom-document) コンポーネントを定義することで実現できます。
 
 #### CSS / Sass / Less / Stylus ファイルのインポート
 
@@ -150,7 +150,7 @@ export default HiThere
 
 ### 静的ファイル (例: 画像) のサーブ
 
-Create a folder called `public` in your project root directory. From your code you can then reference those files starting from the baseURL `/`
+プロジェクトのルートディレクトリに `public` というディレクトリを作成します。配置したファイルをコードから参照するには、 `/` のベース URL 直下を指定します。
 
 ```jsx
 function MyImage() {
@@ -160,11 +160,11 @@ function MyImage() {
 export default MyImage
 ```
 
-To serve static files from the root directory you can add a folder called `public` and reference those files from the root, e.g: `/robots.txt`.
+つまり、ルートディレクトリで静的ファイルを公開するには、 `public` というフォルダーを追加し、そこに置かれたファイルはルートから参照可能ということです (例えば `/robots.txt`) 。
 
-_Note: Don't name the `public` directory anything else. The name can't be changed and is the only directory that Next.js uses for serving static assets._
+_注意: ディレクトリ名を `public` 以外にはしないようにしてください。この名前は変更不可能であり、Next.js は唯一このディレクトリだけを静的ファイルの公開に利用します。_
 
-### Dynamic Routing
+### ダイナミックルーティング
 
 <details>
   <summary><b>例</b></summary>
