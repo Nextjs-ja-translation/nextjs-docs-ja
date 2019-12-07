@@ -8,7 +8,7 @@
 
 https://github.com/zeit/next-site/blob/master/components/docs/docs.mdx
 
-[Components/docs.mdx](https://github.com/5t111111/nextjs-docs-ja/blob/master/components/docs/docs.mdx) が日本語訳されたファイルになります。
+[components/docs/docs.mdx](https://github.com/5t111111/nextjs-docs-ja/blob/master/components/docs/docs.mdx) が日本語訳されたファイルになります。
 
 ## 翻訳プロジェクトを手伝ってくれる方へ
 
@@ -24,8 +24,8 @@ https://github.com/5t111111/nextjs-docs-omegat
 
 ## 翻訳のベースコミット
 
-翻訳元に更新があったことを検知するため、ここに翻訳元ファイルのコミットを記録します。
+翻訳元に更新があったことを検知するため、翻訳元となるファイルのコミットへの参照を記録したファイルを用意しています。
 
-- base commit: d16f39a
+- [base-commit.json](https://github.com/5t111111/nextjs-docs-ja/blob/master/base-commit.json)
 
 翻訳に貢献いただく際は、基本的に上記コミットをベースとしてくださいますようお願いします。
