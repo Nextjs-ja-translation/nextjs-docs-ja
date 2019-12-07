@@ -12,18 +12,18 @@ import baseCommit from "../../base-commit.json";
 const Content = withPure(() => <Markdown components={components} />);
 
 const TranslationInformation = () => {
+  const baseCommitUrl = `https://github.com/zeit/next-site/tree/${baseCommit.ref}`;
+
   return (
     <div>
       <p>
-        このドキュメント日本語翻訳は、
-        <a
-          href="https://github.com/zeit/next-site"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          ドキュメント原文の登録されているリポジトリ
-        </a>
-        のコミット <b>[{baseCommit.ref}]</b> を元に翻訳されています。
+        このドキュメント日本語翻訳は、ドキュメント原文の登録されているリポジトリのコミット
+        <b>
+          <a href={baseCommitUrl} target="_blank" rel="noopener noreferrer">
+            {baseCommit.ref}
+          </a>
+        </b>
+        を元に翻訳されています。
       </p>
       <p>
         情報が古くなっている場合もありますので、できるだけ
