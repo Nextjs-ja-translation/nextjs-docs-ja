@@ -1,11 +1,11 @@
-import NativeLink from 'next/link';
+import NativeLink from "next/link";
 
 export const GenericLink = props => {
-  if (props.href.startsWith('/') && !props.href.startsWith('/docs')) {
+  if (props.href.startsWith("/") && !props.href.startsWith("/docs")) {
     return <InternalLink {...props} />;
   }
 
-  if (props.href.includes('@') || props.href.startsWith('#')) {
+  if (props.href.includes("@") || props.href.startsWith("#")) {
     return <AnchorLink {...props} />;
   }
 
@@ -13,13 +13,13 @@ export const GenericLink = props => {
 };
 
 export const InternalLink = ({ href, as, children, error = false }) => (
-  <NativeLink prefetch href={href} as={as}>
+  <NativeLink href={href} as={as}>
     <a>
       {children}
 
       <style jsx>{`
         a {
-          text-decoration: ${error ? 'underline' : 'none'};
+          text-decoration: ${error ? "underline" : "none"};
           font-size: inherit;
         }
 
@@ -44,9 +44,8 @@ export const AnchorLink = ({ href, onClick, children }) => (
         }
 
         a:hover {
-          color: unset;
+          color: gray;
           text-decoration: none;
-          border-color: transparent;
         }
       `}
     </style>

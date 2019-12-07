@@ -1,177 +1,56 @@
-import { Component } from 'react';
-import Router from 'next/router';
-import { format, parse } from 'url';
-import Head from './head';
-import Sidebar from './sidebar';
-import { H1, H2, H3, H4, H5 } from './text/headings';
-import { Blockquote } from './text/quotes';
-import { InlineCode, Code } from './text/code';
-import { GenericLink } from './text/link';
-import Heading from './heading';
+import Head from "./head";
+import { H1, H2, H3, H4, H5 } from "./text/headings";
+import { Blockquote } from "./text/quotes";
+import { InlineCode, Code } from "./text/code";
+import { GenericLink } from "./text/link";
+import Heading from "./heading";
+import Sidebar from "./sidebar";
 
-import { MediaQueryConsumer } from '../media-query';
+export default function Documentation({ children, headings }) {
+  return (
+    <>
+      <Head title="Getting Started" />
 
-if (typeof window !== 'undefined') {
-  require('intersection-observer');
-}
+      <div className="documentation">
+        <Sidebar headings={headings} desktop />
+        <div className="documentation__container">
+          <div className="documentation__content">{children}</div>
+        </div>
 
-function changeHash(hash) {
-  const { pathname, query } = Router;
+        <style jsx>{`
+          .documentation {
+            display: flex;
+            padding-top: 50px;
+          }
+          @media screen and (max-width: 640px) {
+            .documentation {
+              display: block;
+              padding-top: 25px;
+            }
+          }
+          .documentation__sidebar {
+            display: flex;
+            flex-direction: column;
+          }
 
-  const parsedUrl = parse(location.href);
-  parsedUrl.hash = hash;
+          .documentation__container {
+            flex: 1;
+            padding-bottom: 5rem;
+            overflow: hidden;
+          }
 
-  Router.router.changeState(
-    'replaceState',
-    format({ pathname, query }),
-    format(parsedUrl)
+          .documentation__header h1 {
+            margin-top: 0;
+          }
+
+          .documentation__content {
+            width: 100%;
+            max-width: 600px;
+          }
+        `}</style>
+      </div>
+    </>
   );
-}
-
-export default class Documentation extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentSelection: null
-    };
-    this.contentNode = null;
-    this.observer = null;
-    this.preventScrollObserverUpdate = false;
-
-    this.updateSelected = this.updateSelected.bind(this);
-    this.onHashChange = this.onHashChange.bind(this);
-  }
-
-  componentDidMount() {
-    window.addEventListener('hashchange', this.onHashChange);
-
-    const nodes = [...this.contentNode.querySelectorAll('h3 [id], h4 [id]')];
-    const intersectingTargets = new Set();
-
-    this.observer = new IntersectionObserver(entries => {
-      for (const { isIntersecting, target } of entries) {
-        if (isIntersecting) {
-          intersectingTargets.add(target);
-        } else {
-          intersectingTargets.delete(target);
-        }
-      }
-
-      if (this.preventScrollObserverUpdate) {
-        this.preventScrollObserverUpdate = false;
-        return;
-      }
-      if (!intersectingTargets.size) return;
-
-      let minIndex = Infinity;
-      let id = '';
-
-      for (let target of intersectingTargets.values()) {
-        let index = nodes.indexOf(target);
-        if (index < minIndex) {
-          minIndex = index;
-          id = target.id;
-        }
-      }
-
-      const hash = '#' + (id || '');
-      this.updateSelected(hash);
-    });
-
-    for (const node of nodes) {
-      this.observer.observe(node);
-    }
-
-    const { hash } = window.location;
-    this.setState({ currentSelection: hash });
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('hashchange', this.onHashChange);
-
-    this.observer.disconnect();
-    this.observer = null;
-  }
-
-  updateSelected = hash => {
-    if (this.state.currentSelection !== hash) {
-      this.setState({
-        currentSelection: hash
-      });
-    }
-  };
-
-  onHashChange() {
-    this.preventScrollObserverUpdate = true;
-    this.updateSelected(window.location.hash);
-  }
-
-  render() {
-    const { headings } = this.props;
-
-    return (
-      <MediaQueryConsumer>
-        {({ isMobile, isTablet }) => {
-          return (
-            <>
-              <Head title="Getting Started" />
-
-              <div className="documentation">
-                <Sidebar
-                  updateSelected={this.updateSelected}
-                  currentSelection={this.state.currentSelection}
-                  isMobile={isMobile}
-                  headings={headings}
-                />
-
-                <div className="documentation__container">
-                  <div
-                    className="documentation__content"
-                    ref={ref => (this.contentNode = ref)}
-                  >
-                    {this.props.children}
-                  </div>
-                </div>
-
-                <style jsx>{`
-                  .documentation {
-                    display: ${isMobile ? 'block' : 'flex'};
-                  }
-
-                  .documentation__sidebar {
-                    display: flex;
-                    flex-direction: column;
-                  }
-
-                  .documentation__container {
-                    flex: 1;
-                    padding-bottom: 5rem;
-                    overflow: hidden;
-                  }
-
-                  .documentation__header h1 {
-                    margin-top: 0;
-                  }
-
-                  .documentation__content {
-                    width: 100%;
-                    max-width: 600px;
-                  }
-
-                  // CSS only media query for mobile + SSR
-                  @media screen and (max-width: 640px) {
-                    .documentation {
-                      ${isMobile ? `` : `flex-direction: column;`};
-                    }
-                  }
-                `}</style>
-              </div>
-            </>
-          );
-        }}
-      </MediaQueryConsumer>
-    );
-  }
 }
 
 const DocH2 = ({ children, id }) => (
@@ -212,12 +91,18 @@ const Details = ({ children }) => {
   return (
     <details>
       {children}
-      <style jsx>{`
-        margin: 1rem 0;
-        padding: 0 0.5rem;
-        background: #f9f9f9;
-        overflow: hidden;
-      `}</style>
+      <style jsx>
+        {`
+          details {
+            margin: 1rem 0;
+            padding: 0 0.5rem;
+            background: #f9f9f9;
+          }
+          details[open] {
+            overflow: hidden;
+          }
+        `}
+      </style>
     </details>
   );
 };
@@ -232,7 +117,6 @@ const Summary = ({ children }) => {
           outline: none;
           font-weight: 500;
         }
-
         summary:hover {
           opacity: 0.8;
         }

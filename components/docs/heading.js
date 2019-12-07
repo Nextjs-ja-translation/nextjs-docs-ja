@@ -1,4 +1,4 @@
-import GithubSlugger from 'github-slugger';
+import GithubSlugger from "github-slugger";
 
 const PermalinkIcon = () => (
   <span>
@@ -25,24 +25,22 @@ const PermalinkIcon = () => (
   </span>
 );
 
-class Heading extends React.Component {
-  render() {
-    const { component, className, children, ...rest } = this.props;
-    return React.cloneElement(
-      component,
-      {
-        className: [className, component.props.className || ''].join(' '),
-        ...rest
-      },
-      children
-    );
-  }
+function Heading(props) {
+  const { component, className, children, ...rest } = props;
+  return React.cloneElement(
+    component,
+    {
+      className: [className, component.props.className || ""].join(" "),
+      ...rest
+    },
+    children
+  );
 }
 
 export default props => {
   const { offsetTop } = props;
   const component = props.children;
-  const children = component.props.children || '';
+  const children = component.props.children || "";
 
   let id = props.id;
   let text = children;
@@ -54,9 +52,9 @@ export default props => {
     if (Array.isArray(children)) {
       text = children
         .map(child => {
-          return typeof child === 'object' ? child.props.children : child;
+          return typeof child === "object" ? child.props.children : child;
         })
-        .join('');
+        .join("");
     }
 
     id = slugger.slug(text);
@@ -64,16 +62,16 @@ export default props => {
 
   const targetStyle =
     null != offsetTop
-      ? { marginTop: -offsetTop + 'px', paddingTop: offsetTop + 'px' }
+      ? { marginTop: -offsetTop + "px", paddingTop: offsetTop + "px" }
       : null;
   return (
     <Heading
-      className={props.lean ? 'lean' : ''}
+      className={props.lean ? "lean" : ""}
       component={component}
       data-components-heading
     >
       <span id={id} className="target docs-anchor-target" style={targetStyle} />
-      <a href={'#' + id}>{children}</a>
+      <a href={"#" + id}>{children}</a>
       <span className="permalink">
         <PermalinkIcon />
       </span>
@@ -85,23 +83,23 @@ export default props => {
 
           a:hover {
             color: inherit;
-            text-decoration: underline;
+            border-bottom: 1px dotted;
           }
 
           :global(h1[data-components-heading]) a::before {
-            content: '# ';
+            content: "# ";
           }
 
           :global(h2[data-components-heading]) a::before {
-            content: '## ';
+            content: "## ";
           }
 
           :global(h3[data-components-heading]) a::before {
-            content: '### ';
+            content: "### ";
           }
 
           :global(.lean[data-components-heading]) a::before {
-            content: '';
+            content: "";
           }
 
           :global(h1[data-components-heading]::before),

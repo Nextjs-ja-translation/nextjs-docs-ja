@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 
 const {
   Provider: MediaQueryProvider,
@@ -14,10 +14,17 @@ const withMediaQuery = Comp =>
       isMobile: false,
       isTablet: false
     };
-
+    componentDidMount() {
+      window.addEventListener("resize", this.onResize);
+      this.onResize();
+    }
+    componentWillUnmount() {
+      window.removeEventListener("resize", this.onResize);
+    }
     onResize = () => {
       const isMobile = window.innerWidth < 640;
       const isTablet = window.innerWidth < 960;
+
       if (isMobile !== this.state.isMobile) {
         this.setState({ isMobile });
       }
@@ -25,16 +32,6 @@ const withMediaQuery = Comp =>
         this.setState({ isTablet });
       }
     };
-
-    componentDidMount() {
-      window.addEventListener('resize', this.onResize);
-      this.onResize();
-    }
-
-    componentWillUnmount() {
-      window.removeEventListener('resize', this.onResize);
-    }
-
     render() {
       const { isMobile, isTablet } = this.state;
 
