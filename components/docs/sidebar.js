@@ -28,9 +28,7 @@ export function SidebarNavItem({ item }) {
   if (item.level === 2) {
     return (
       <li>
-        <a on={ampOn} className="documentation__sidebar-heading f5">
-          {item.title}
-        </a>
+        <a href={href}>{item.title}</a>
         <style jsx>{`
           li {
             list-style: none;
@@ -73,9 +71,7 @@ export function SidebarNavItem({ item }) {
 
   return (
     <li>
-      <a on={ampOn} className="f-reset">
-        {item.title}
-      </a>
+      <a href={href}>{item.title}</a>
       <style jsx>{`
         li {
           list-style: none;
