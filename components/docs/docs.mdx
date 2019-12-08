@@ -978,7 +978,7 @@ class MyLink extends React.Component {
 export default withRouter(MyLink)
 ```
 
-### API Routes
+### API ルート
 
 <details>
   <summary><b>例</b></summary>
@@ -991,13 +991,13 @@ export default withRouter(MyLink)
   </ul>
 </details>
 
-API routes provides a straightforward solution to build your **API** with Next.js.
-Start by creating the `api/` folder inside the `./pages/` folder.
+API ルートによって、Next.js で **API** を構築することはとても簡単です。
+まず、`./pages` フォルダーに `api/` フォルダーを作成します。
 
-Every file inside `./pages/api` is mapped to `/api/*`.
-For example, `./pages/api/posts.js` is mapped to the route `/api/posts`.
+`./pages/api` に格納されているすべてのファイルは `/api/*` にマッピングされます。
+例えば、`./pages/api/posts.js` は `/api/posts` というルートにマッピングされます。
 
-Here's an example API route file:
+以下が API ルートのファイルの例です:
 
 ```js
 export default (req, res) => {
@@ -1007,11 +1007,11 @@ export default (req, res) => {
 }
 ```
 
-- `req` refers to [NextApiRequest](https://github.com/zeit/next.js/blob/v9.0.0/packages/next-server/lib/utils.ts#L143-L158) which extends [http.IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage)
+- `req` は [NextApiRequest](https://github.com/zeit/next.js/blob/v9.0.0/packages/next-server/lib/utils.ts#L143-L158) の値であり、[http.IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) を拡張したものです
 
-- `res` refers to [NextApiResponse](https://github.com/zeit/next.js/blob/v9.0.0/packages/next-server/lib/utils.ts#L168-L178) which extends [http.ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse)
+- `res` は [NextApiResponse](https://github.com/zeit/next.js/blob/v9.0.0/packages/next-server/lib/utils.ts#L168-L178) の値であり、[http.ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse) を拡張したものです
 
-For [API routes](#api-routes) there are built-in types `NextApiRequest` and `NextApiResponse`, which extend the `Node.js` request and response objects.
+[API ルート](#api-routes)のために用意されているこれらの `NextApiRequest` と `NextApiResponse` という型は、それぞれ `Node.js` の request と response  型の拡張です。
 
 ```ts
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -1021,7 +1021,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 }
 ```
 
-To handle different HTTP methods for API calls you can access `req.method` in your resolver function:
+API 呼び出しで様々な HTTP メソッドを扱いたい場合は、リゾルバ関数内で `req.method`  にアクセスすることができます:
 
 ```js
 export default (req, res) => {
@@ -1033,17 +1033,17 @@ export default (req, res) => {
 }
 ```
 
-> **Note**: API Routes [do not specify CORS headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), so they'll be **same-origin only** by default.
-> You can customize this behavior by wrapping your export with CORS middleware.
-> We provide an [example of this below](#api-middlewares).
+> **注意**: API ルートには [CORS ヘッダーが設定されていません](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)。したがって、デフォルトでは **同一オリジンのみ**  で機能します。
+> この挙動をカスタマイズしたい場合は、CORS ミドルウェアでラップして export することができます。
+> [その例はこちらです](#api-middlewares)。
 
-API Routes do not increase your client-side bundle size. They are server-side only bundles.
+API ルートによってクライアントサイドのバンドルのサイズが大きくなることはありません。それらはサーバーサイドのみのバンドルとなります。
 
-#### Dynamic routes support
+#### 動的なルーティングのサポート
 
-API pages support [dynamic routing](#dynamic-routing), so you can use all benefits mentioned already above.
+API ページは[動的なルーティング](#dynamic-routing)をサポートしているので、その機能のすべてを利用することが可能です。
 
-Consider the following page `./pages/api/post/[pid].js`, here is how you get parameters inside the resolver method:
+例えば `./pages/api/post/[pid].js` というページがあった場合、リゾルバー関数では以下のようにしてパラメータを取得することができます。
 
 ```js
 export default (req, res) => {
@@ -1055,17 +1055,17 @@ export default (req, res) => {
 }
 ```
 
-#### API Middlewares
+#### API ミドルウェア
 
-API routes provides built in middlewares which parse the incoming `req`.
-Those middlewares are:
+API ルートには、送信されてきた `req` をパースするための組み込みミドルウェアが提供されています。
+以下がそれらのミドルウェアです:
 
-- `req.cookies` - an object containing the cookies sent by the request. Defaults to `{}`
-- `req.query` - an object containing the [query string](https://en.wikipedia.org/wiki/Query_string). Defaults to `{}`
-- `req.body` - an object containing the body parsed by `content-type`, or `null` if no body is sent
+- `req.cookies` : request で送られてきた cookies を格納しているオブジェクトです。デフォルト値は `{}` です
+- `req.query` [クエリストリング](https://en.wikipedia.org/wiki/Query_string)を格納しているオブジェクトです。デフォルト値は `{}` です
+- `req.body` `content-type` にしたがってパースされた body を格納するオブジェクトで、body が含まれない場合には `null` となります
 
-Body parsing is enabled by default with a size limit of `1mb` for the parsed body.
-You can opt-out of automatic body parsing if you need to consume it as a `Stream`:
+リクエスト body のパースはデフォルトで有効になっていて、サイズの制限は `1mb` です。
+もし `Stream` として利用する必要がある場合には、以下のようにして上記のデフォルトの挙動をオプトアウトすることが可能です:
 
 ```js
 // ./pages/api/my-endpoint.js
@@ -1080,7 +1080,7 @@ export const config = {
 }
 ```
 
-You can adjust size of parsed body by adding `sizeLimit` key to `bodyParser`, supported values are by [bytes](https://github.com/visionmedia/bytes.js) library.
+パースされる body のサイズを変更したい場合は、`sizeLimit` キーを `bodyParser` に追加し、[bytes](https://github.com/visionmedia/bytes.js) ライブラリがサポートしている値を設定します: 
 
 ```js
 // ./pages/api/my-endpoint.js
@@ -1097,11 +1097,11 @@ export const config = {
 }
 ```
 
-As an added bonus, you can also use any [Micro](https://github.com/zeit/micro) compatible [middleware](https://github.com/amio/awesome-micro)!
+更に嬉しい点として、[Micro])(https://github.com/zeit/micro) 互換の[ミドルウェア](https://github.com/amio/awesome-micro)を使うこともできます！
 
-For example, [configuring CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) for your API endpoint can be done leveraging `micro-cors`.
+例えば、API エンドポイントで [CORS の構成](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)をしたいときは、`micro-cors` を利用することが可能です。
 
-First, install `micro-cors`:
+まず、`micro-cors` をインストールします:
 
 ```bash
 npm i micro-cors
@@ -1109,7 +1109,7 @@ npm i micro-cors
 yarn add micro-cors
 ```
 
-Then, import `micro-cors` and [configure it](https://github.com/possibilities/micro-cors#readme). Finally, wrap your exported function in the middleware:
+そして、`micro-cors` を import し[設定してください](https://github.com/possibilities/micro-cors#readme)。最後に、export される関数をそのミドルウェアでラップすれば完成です。
 
 ```js
 import Cors from 'micro-cors'
@@ -1125,9 +1125,10 @@ function Endpoint(req, res) {
 export default cors(Endpoint)
 ```
 
-#### Helper Functions
+#### ヘルパー関数
 
-We're providing a set of Express.js-like methods to improve the developer experience and increase the speed of creating new API endpoints:
+より良い developer experience を提供し、API エンドポイントをより高速に開発できるように、Express.js ライクなメソッドを用意しています:
+
 
 ```js
 export default (req, res) => {
@@ -1135,9 +1136,9 @@ export default (req, res) => {
 }
 ```
 
-- `res.status(code)` - a function to set the status code. `code` must be a valid [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)
-- `res.json(json)` - Sends a `JSON` response. `json` must be a valid `JSON` object
-- `res.send(body)` - Sends the HTTP response. `body` can be a `string`, an `object` or a `Buffer`
+- `res.status(code)` - ステータスコードを設定するための関数です。`code` は正しい [HTTP ステータスコード](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) である必要があります
+- `res.json(json)` - `JSON` レスポンスを送信します。`json` は正しい `JSON` オブジェクトである必要があります
+- `res.send(body)` - HTTP レスポンスを送信します。`body` は `string` か `object`、または `Buffer` である必要があります
 
 ### カスタムサーバーとルーティング
 
