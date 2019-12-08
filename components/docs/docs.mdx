@@ -164,7 +164,7 @@ export default MyImage
 
 _注意: ディレクトリ名を `public` 以外にはしないようにしてください。この名前は変更不可能であり、Next.js は唯一このディレクトリだけを静的ファイルの公開に利用します。_
 
-### ダイナミックルーティング
+### 動的なルーティング
 
 <details>
   <summary><b>例</b></summary>
@@ -173,9 +173,9 @@ _注意: ディレクトリ名を `public` 以外にはしないようにして�
   </ul>
 </details>
 
-Defining routes by using predefined paths is not always enough for complex applications, in Next.js you can add brackets to a page (`[param]`) to create a dynamic route (a.k.a. url slugs, pretty urls, et al).
+複雑なアプリケーションでは、事前に定義されたパスによってルートを定義するのだけでは不足な場合があります。そのため、Next.js では、 `[param]` のようにページに角括弧 (ブラケット) を設定することで動的なルーティングをすることができます。(これは slug や pretty url などと呼ばれることもあります)
 
-Consider the following page `pages/post/[pid].js`:
+`pages/post/[pid].js` というページが以下の内容であるとします:
 
 ```jsx
 import { useRouter } from 'next/router'
@@ -190,18 +190,18 @@ const Post = () => {
 export default Post
 ```
 
-Any route like `/post/1`, `/post/abc`, etc will be matched by `pages/post/[pid].js`.
-The matched path parameter will be sent as a query parameter to the page.
+このとき、`/post/1` や `/post/abc` などのルートは `pages/post/[pid].js` にマッチします。
+そして、マッチしたパスのパラメータはクエリパラメータとしてページに送られます。
 
-For example, the route `/post/abc` will have the following `query` object: `{ pid: 'abc' }`.
-Similarly, the route `/post/abc?foo=bar` will have the `query` object: `{ foo: 'bar', pid: 'abc' }`.
+例えば、`/post/abc` というルートは次の `query` オブジェクトを持ちます: `{ pid: 'abc' }` 。
+同様に、`/post/abc?foo=bar` であれば `query` オブジェクトは次のようになります: `{ foo: 'bar', pid: 'abc' }` 。
 
-> Note: Multiple dynamic route segments work the same way.
+> 注意: 複数の動的なルートセグメントがあるときも同様です。
 >
-> For example, `pages/post/[pid]/[comment].js` would match `/post/1/a-comment`.
-> Its `query` object would be: `{ pid: '1', comment: 'a-comment' }`.
+> 例えば、`pages/post/[pid]/[comment].js` は `/post/1/a-comment` にマッチしますが、
+> そのときの `query` オブジェクトは次のようになります: `{ pid: '1', comment: 'a-comment' }` 。
 
-A `<Link>` for `/post/abc` looks like so:
+`/post/abc` に対する `<Link>` はこのようになります:
 
 ```jsx
 <Link href="/post/[pid]" as="/post/abc">
@@ -209,11 +209,10 @@ A `<Link>` for `/post/abc` looks like so:
 </Link>
 ```
 
-- `href`: the path inside `pages` directory.
-- `as`: the path that will be rendered in the browser URL bar.
+- `href`: `pages` ディレクトリ以下のパス
+- `as`: ブラウザのアドレスバーに表示されるパス
 
-As `href` is a filesystem path, it shouldn't change at runtime, instead, you will probably need to change `as`
-dynamically according to your needs. Here's an example to create a list of links:
+`href` はファイルシステム上のパスなので、ランタイムにそれを変更することはできません。したがって、パスを動的に設定する必要がある場合には `as` を動的に設定します。例えば、以下はリンクのリストを作成する例です:
 
 ```jsx
 const pids = ['id1', 'id2', 'id3']
@@ -226,22 +225,22 @@ const pids = ['id1', 'id2', 'id3']
 }
 ```
 
-> You can [read more about `<Link>` here](#with-link).
+> [`<Link>` リンクに関しての詳細はこちらを参照ください](#with-link) 。
 
-However, if a query and route param name are the same, route parameters will override the matching query params.
-For example, `/post/abc?pid=bcd` will have the `query` object: `{ pid: 'abc' }`.
+もしクエリとルートのパラメータが同一の名前だった場合には、クエリのパラメータはルートのパラメータで上書きされることに注意してください。
+例えば、`/post/abc?pid=bcd` は次の `query` オブジェクトを持ちます: `{ pid: 'abc' }` 。
 
-> **Note**: Predefined routes take precedence over dynamic routes.
-> For example, if you have `pages/post/[pid].js` and `pages/post/create.js`, the route `/post/create` will be matched by `pages/post/create.js` instead of the dynamic route (`[pid]`).
+> **メモ**: 事前定義された静的なルーティングは動的なルーティングより優先されます。
+> 例えば、`pages/post/[pid].js` と `pages/post/create.js` というルートが存在する場合、`/post/create` は `pages/post/create.js` にマッチします。`[pid]` の動的なルーティングにはマッチしません。
 
-> **Note**: Pages that are statically optimized by [automatic static optimization](#automatic-static-optimization) will be hydrated without their route parameters provided (`query` will be empty, i.e. `{}`).
-> After hydration, Next.js will trigger an update to your application to provide the route parameters in the `query` object.
-> If your application cannot tolerate this behavior, you can opt-out of static optimization by capturing the query parameter in `getInitialProps`.
+> **メモ**: [自動静的最適化](#automatic-static-optimization) されたページはルートパラメータなしで hydrate されます (`query` は `{}` のように空になります) 。
+> hydration されたあと、Next.js はクエリパラメータを `query` オブジェクトで渡すようにアプリケーションを更新します。
+> アプリケーション的にこの挙動だと都合が悪い場合には、`getInitialProps` 内でクエリパラメータをキャプチャすることでこの静的最適化をオプトアウトすることができます。
 
-> **Note**: If deploying to [ZEIT Now](https://zeit.co/now) dynamic routes will work out-of-the-box.
-> You do not need to configure custom routes in a `now.json` file.
+> **メモ**: [ZEIT Now](https://zeit.co/now) にデプロイする場合、動的ルーティングは特に設定なしで動作します。
+> したがって、`now.json` でカスタムルーティングを構成する必要はありません。
 >
-> If you are new to ZEIT Now, you can learn how to deploy a Next.js app to it in the [_Deploying a Next.js App_ Learn section](https://nextjs.org/learn/basics/deploying-a-nextjs-app).
+> ZEIT Now に Next.js アプリケーションをデプロイすることについてもっと知りたいときは、[_Deploying a Next.js App_ Learn section](https://nextjs.org/learn/basics/deploying-a-nextjs-app) を参照ください。
 
 ### `<head>` への挿入
 
