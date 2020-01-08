@@ -2237,7 +2237,7 @@ export default class Page extends React.Component<Props> {
 }
 ```
 
-## AMPのサポート
+## AMP のサポート
 
 <details>
   <summary><b>例</b></summary>
@@ -2246,11 +2246,11 @@ export default class Page extends React.Component<Props> {
   </ul>
 </details>
 
-### AMP Supportの有効化
+### AMP サポートの有効化
 
-`export const config = { amp: true }`をページに追記することで、AMPを有効化することができます。
+`export const config = { amp: true }` をページに追記することで、AMP を有効化することができます。
 
-### AMPファーストページ
+### AMP ファーストページ
 
 ```js
 // pages/about.js
@@ -2261,7 +2261,7 @@ export default function AboutPage(props) {
 }
 ```
 
-### ハイブリッドAMPページ
+### ハイブリッド AMP ページ
 
 ```js
 // pages/hybrid-about.js
@@ -2289,45 +2289,44 @@ export default function AboutPage(props) {
 }
 ```
 
-### AMPページモード
+### AMP ページモード
 
-AMP化するには、２つのモードがあります。
+AMP化するには、２つのモードがあります:
 
-- AMP-only (default)
-  - Next.jsまたは、Reactのクライアント側でのランタイムはありません。
-  - AMPキャッシュと同じ変換を適用する[AMP Optimizer](https://github.com/ampproject/amp-toolbox/tree/master/packages/optimizer)によって自動的に最適化されます。(最大で、パフォーマンスを42％向上します)
-  - ページには、ユーザーがアクセス可能な（最適化された）バージョンと検索エンジンでインデックス可能な（最適化されていない）バージョンがあります。
-  - `export const config = { amp: true }`で設定します。
-- Hybrid
-  - 従来のHTML（デフォルト）のレンダリングに加えて、URLの末尾に`?amp=1`を指定することでAMP HTMLとしてレンダリングすることが可能です
-  - AMPバージョンのページでは、 AMP Optimizerにより、最適化が行われるため検索エンジンでのインデックスが可能です。
-  - `export const config = { amp: 'hybrid' }`で設定します。
-  -  `next/amp`の `useAmp`を使用することで、AMP-only、Hybridモードを区別します。
+- AMP-only (デフォルト)
+  - ページには、Next.js および React のクライアント側でのランタイムはありません
+  - ページには AMP キャッシュと同じ変換が適用され、[AMP Optimizer](https://github.com/ampproject/amp-toolbox/tree/master/packages/optimizer)によって自動的に最適化されます (最大で、パフォーマンスを42％向上します)
+  - ページには、ユーザーがアクセス可能な（最適化された）バージョンと、検索エンジンでインデックス可能な（最適化されていない）バージョンがあります
+  - `export const config = { amp: true }`で設定します
+- ハイブリッド
+  - 従来のHTML（デフォルト）のレンダリングに加えて、URLの末尾に `?amp=1` を指定することで AMP HTML としてレンダリングすることが可能です
+  - AMPバージョンのページでは、 AMP Optimizer による valid な最適化のみが行われるため、検索エンジンでのインデックスが可能です
+  - `export const config = { amp: 'hybrid' }` で設定します
+  - `next/amp` の `useAmp` を使用することで、AMP-only とハイブリッドモードを区別することができます
 
-これらのモードは、検索エンジンを介してエンドユーザへ高速なページアクセス体験を提供します。
+どちらのモードも、検索エンジン経由でのアクセスにおいて一貫した高速な UX を提供します。
 
+### `next export` における AMP の挙動について
 
-### AMPにおいての `next export` の挙動
+`next export` で静的にページを事前レンダリングする際、Next.js はページが AMP をサポートしているかを検出し、結果に応じて挙動を変更します。
 
-`next export`で静的にページを事前レンダリングする際、Next.jsはページがAMPをサポートしているかを検出し、結果に応じて挙動を変更します。
+ハイブリッド AMP (`pages/about.js`) での出力例は以下です:
 
-Hybrid AMP (`pages/about.js`)での出力例:
+- `out/about.html` - クライアントサイドの React ランタイム
+- `out/about.amp.html` - AMP ページ
 
-- `out/about.html` - クライアント側でReactが実行された際
-- `out/about.amp.html` - AMPページ
+AMP-only (`pages/about.js`) での出力例は以下です:
 
-AMP-only (`pages/about.js`)での出力例:
+- `out/about.html` - 最適化された AMP ページ
 
-- `out/about.html` - 最適化されたAMPページ
+エクスポートの際に、ページがハイブリッド AMP ページかどうかを自動的に検出し、AMP バージョンを `page.amp.html` へ出力します。エクスポート中にページがハイブリッドAMPページかどうかを自動的に検出し、AMPバージョンを `page.amp.html`へ出力します。また、自動的に`<link rel="amphtml" href="/page.amp" />` と `<link rel="canonical" href="/" />`タグを埋め込みます。
 
-エクスポート中にページがハイブリッドAMPページかどうかを自動的に検出し、AMPバージョンを `page.amp.html`へ出力します。また、自動的に`<link rel="amphtml" href="/page.amp" />` と `<link rel="canonical" href="/" />`タグを埋め込みます。
+> **注意**: `next.config.js` で `exportTrailingSlash: true` と記載した場合、出力先がそれぞれのモードにおいて異なります。ハイブリッド AMPページの場合、出力先が `out/page/index.html` と `out/page.amp/index.html` となり、AMP-only ページだと `out/page/index.html` となります。
 
-> **注意点**: `next.config.js`で`exportTrailingSlash: true` と記載した場合、出力先がそれぞれのモードにおいて異なります。Hybrid AMPページの場合、出力先が`out/page/index.html`と`out/page.amp/index.html`となり、AMP-onlyページだと`out/page/index.html`となります。
+### AMP コンポーネントの追加
 
+AMP コミュニティではたくさんの[コンポーネント](https://amp.dev/documentation/components/)が用意されており、AMP ページをよりインタラクティブにします。下記のように `next/head` を使ってAMP Componentsを追加することができます:
 
-### AMP Componentsの追加
-
-AMPコミュニティではたくさんの[components](https://amp.dev/documentation/components/)が用意されており、AMPページをよりインタラクティブにします。 下記のように`next/head`を使ってAMP Componentsを追加することができます。
 ```js
 // pages/hello.js
 import Head from 'next/head'
@@ -2360,16 +2359,16 @@ export default function MyAmpPage() {
 }
 ```
 
-### AMP Validation
+### AMP バリデーション
 
-開発モードの間、[amphtml-validator](https://www.npmjs.com/package/amphtml-validator)によって、自動でAMPページが検証されます。エラーと警告に関しては、Next.jsを起動したターミナルに表示されます。
-また、 `next export`時にもAMPに関する検証が行われ、エラーや警告があればターミナルに表示されます。
-出力が有効なAMPではなくAMPに関するエラーが起きた際、`next export`はステータスコード`1`をもって処理を終了します。
+開発中は、[amphtml-validator](https://www.npmjs.com/package/amphtml-validator)によって、自動で AMP ページが検証されます。エラーと警告に関しては、Next.js を起動したターミナルに表示されます。
 
+また、`next export` の際にも AMP に関する検証が行われ、エラーや警告があればターミナルに表示されます。
+出力が有効な AMP ではなく AMP に関するエラーが起きた場合は、`next export` はステータスコード `1` をもって処理を終了します。
 
-### TypeScriptのサポート
+### TypeScript のサポート
 
-現在AMPにはTypeScriptの組み込み型はありません。しかし、ロードマップ ([#13791](https://github.com/ampproject/amphtml/issues/13791))にあるため近い将来実装されるかもしれません。回避策としては、[参考例](https://stackoverflow.com/a/50601125)のように手動で`amp.d.ts`に型を定義することでTypeScript化を行えます。
+現在AMPにはTypeScriptの組み込み型はありません。しかし、ロードマップ ([#13791](https://github.com/ampproject/amphtml/issues/13791))にあるため、近い将来実装されるかもしれません。回避策としては、[参考例](https://stackoverflow.com/a/50601125)のように手動で `amp.d.ts` に型を定義することで TypeScript 化を行えます。
 
 ## Static HTML export
 
