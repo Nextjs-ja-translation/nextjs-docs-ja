@@ -1080,7 +1080,7 @@ export const config = {
 }
 ```
 
-パースされる body のサイズを変更したい場合は、`sizeLimit` キーを `bodyParser` に追加し、[bytes](https://github.com/visionmedia/bytes.js) ライブラリがサポートしている値を設定します: 
+パースされる body のサイズを変更したい場合は、`sizeLimit` キーを `bodyParser` に追加し、[bytes](https://github.com/visionmedia/bytes.js) ライブラリがサポートしている値を設定します:
 
 ```js
 // ./pages/api/my-endpoint.js
@@ -2191,9 +2191,9 @@ TypeScriptに関して詳しく知りたい方は、[ドキュメント](https:/
 > **注意点** : Next.jsは、デフォルトではTypeScriptのstrictモードは有効ではありません。
 > したがって、TypeScriptに慣れたら別途 `tsconfig.json` にて設定するとよいでしょう。
 
-### Exported types
+### 型のエキスポート
 
-Next.js provides `NextPage` type that can be used for pages in the `pages` directory. `NextPage` adds definitions for [`getInitialProps`](#fetching-data-and-component-lifecycle) so that it can be used without any extra typing needed.
+Next.jsでは、`NextPage` という型が提供されており、pagesディレクトリの中にあるページに対し使用することができます。また`NextPage` は、[`getInitialProps`](#fetching-data-and-component-lifecycle) の値に対し、簡単に型を定義できます。
 
 ```tsx
 import { NextPage } from 'next'
@@ -2214,7 +2214,7 @@ Page.getInitialProps = async ({ req }) => {
 export default Page
 ```
 
-For `React.Component` you can use `NextPageContext`:
+`React.Component`の場合、`NextPageContext`を使います。:
 
 ```tsx
 import React from 'react'
