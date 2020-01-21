@@ -2191,9 +2191,9 @@ TypeScriptに関して詳しく知りたい方は、[ドキュメント](https:/
 > **注意点** : Next.jsは、デフォルトではTypeScriptのstrictモードは有効ではありません。
 > したがって、TypeScriptに慣れたら別途 `tsconfig.json` にて設定するとよいでしょう。
 
-### 型のエキスポート
+### 型のエクスポート
 
-Next.jsでは、`NextPage` という型が提供されており、pagesディレクトリの中にあるページに対し使用することができます。また`NextPage` は、[`getInitialProps`](#fetching-data-and-component-lifecycle) の値に対し、簡単に型を定義できます。
+Next.js では、`NextPage` という型が提供されており、pages ディレクトリの中にあるページで使用することができます。`NextPage` は [`getInitialProps`](#fetching-data-and-component-lifecycle) に対して型情報を提供するため、自分で型定義をすることなく簡単に利用できます。
 
 ```tsx
 import { NextPage } from 'next'
@@ -2214,7 +2214,7 @@ Page.getInitialProps = async ({ req }) => {
 export default Page
 ```
 
-`React.Component`の場合、`NextPageContext`を使います。:
+`React.Component` の場合は `NextPageContext` を使います:
 
 ```tsx
 import React from 'react'
