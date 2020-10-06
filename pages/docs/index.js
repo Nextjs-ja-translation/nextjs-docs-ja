@@ -26,15 +26,26 @@ const TranslationInformation = () => {
         を元に翻訳されています。
       </p>
       <p>
-        情報が古くなっている場合もありますので、できるだけ
-        <a
-          href="https://nextjs.org/docs"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          原文のドキュメント
-        </a>
-        で最新の情報を参照ください。
+        Next.js 9.3 以降本家ドキュメントが新しくなったため、リポジトリを新しく作り直しました。情報が古くなっている場合もありますので、できるだけ最新の情報を参照ください。<br />
+        <b>
+          ・<a
+            href="https://github.com/Nextjs-ja-translation/Nextjs-ja-translation-docs"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            リポジトリ
+          </a>
+        </b>
+        <br />
+        <b>
+          ・<a
+            href="https://nextjs-ja-translation-docs.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            翻訳ドキュメントのURL
+          </a>
+        </b>
       </p>
       <style jsx>{`
         div {
